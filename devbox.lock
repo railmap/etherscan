@@ -20,6 +20,12 @@
           "store_path": "/nix/store/d6lkbndr98lcn8spbqxfq52f2ldvqhks-nodejs-20.11.0"
         }
       }
+    },
+    "trunk-io@1.3.0": {
+      "last_modified": "2024-01-27T14:55:31Z",
+      "resolved": "github:NixOS/nixpkgs/160b762eda6d139ac10ae081f8f78d640dd523eb#trunk-io",
+      "source": "devbox-search",
+      "version": "1.3.0"
     }
   }
 }
