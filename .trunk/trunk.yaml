@@ -26,18 +26,13 @@ lint:
     - yamllint@1.33.0
 actions:
   enabled:
+    - commitlint
     - trunk-announce
     - trunk-check-pre-push
     - trunk-upgrade-available
     - check_branch_format
-    - check_commit_format
   definitions:
     - id: check_branch_format
+      run: ./.trunk/trunk_scripts/check_branch_format.sh
       triggers:
         - git_hooks: [post-checkout]
-      run: ./.trunk/trunk_scripts/check_branch_format.sh
-    - id: check_commit_format
-      interactive: true
-      run: ./.trunk/trunk_scripts/check_commit_format.sh
-      triggers:
-        - git_hooks: [commit-msg]
