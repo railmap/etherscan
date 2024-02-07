@@ -35,4 +35,4 @@ actions:
     - id: check_branch_format
       run: ./.trunk/trunk_scripts/check_branch_format.sh
       triggers:
-        - git_hooks: [post-checkout]
+        - git_hooks: [pre-commit]

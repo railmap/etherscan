@@ -14,9 +14,6 @@ allowed_pattern="^(feature|chore|fix|docs)/.*$"
 
 if [[ ! $branch_name =~ $allowed_pattern ]]; then
     echo -e "\n${RED}Error: Branch naming must starts with 'chore/', 'feature/', 'docs/' or 'fix'/"
-    echo -e "${ORANGE}Returning to the previous branch..."
-    git checkout -
-    # git branch -d $branch_name
     exit 1
 fi
 
