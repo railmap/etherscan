@@ -1,6 +1,26 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "nodePackages.pnpm@8.15.1": {
+      "last_modified": "2024-02-07T01:22:34Z",
+      "resolved": "github:NixOS/nixpkgs/f8e2ebd66d097614d51a56a755450d4ae1632df1#nodePackages.pnpm",
+      "source": "devbox-search",
+      "version": "8.15.1",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/sj5153h2hcz6bw4rvpmsfmq4yz1rd861-pnpm-8.15.1"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/vsc62bwz7gic225qzs85jvxbwq7915l1-pnpm-8.15.1"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/msr6df7rs922fsk3cnswqf6f0sn3p1rz-pnpm-8.15.1"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/94y6gwx5vxpz18hg3zryzbrzq3dwjsq9-pnpm-8.15.1"
+        }
+      }
+    },
     "nodejs@20.11.0": {
       "last_modified": "2024-01-27T14:55:31Z",
       "resolved": "github:NixOS/nixpkgs/160b762eda6d139ac10ae081f8f78d640dd523eb#nodejs_20",
