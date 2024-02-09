@@ -17,6 +17,7 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - eslint@8.56.0
     - checkov@3.2.5
     - git-diff-check
     - osv-scanner@1.6.2
@@ -29,6 +30,7 @@ actions:
     - commitlint
     - trunk-announce
     - trunk-check-pre-push
+    - trunk-fmt-pre-commit
     - trunk-upgrade-available
     - check_branch_format
   definitions:
