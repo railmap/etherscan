@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   test: {
-    includeSource: ["src/**/*.{ts}"],
+    includeSource: ["src/**/*.ts"],
     include: ["test/**/*.{test,spec}.ts?(x)"],
   },
 });

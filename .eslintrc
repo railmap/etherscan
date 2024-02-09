@@ -4,6 +4,6 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["standard-with-typescript", "airbnb", "prettier"],
+  "extends": ["standard-with-typescript", "prettier"],
   "ignorePatterns": ["vite.config.ts"]
 }
