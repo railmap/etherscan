@@ -1,3 +1,5 @@
+import { EtherscanBaseUrl } from "etherscan/constants";
+
 import type {
   EtherscanAction,
   EtherscanActionCall,
@@ -6,22 +8,9 @@ import type {
   EtherscanResult,
 } from "etherscan/types";
 
-import type {
-  AddressParam,
-  StartBlockParam,
-  EndBlockParam,
-  PageParam,
-  OffsetParam,
-  SortParam,
-} from "etherscan/types/param";
+import type { AddressParam, TagParam } from "etherscan/types/param";
 
-export type BalanceParam =
-  | AddressParam
-  | StartBlockParam
-  | EndBlockParam
-  | PageParam
-  | OffsetParam
-  | SortParam;
+export type BalanceParam = AddressParam | TagParam;
 
 export type BalanceParams = EtherscanParams<BalanceParam>;
 
@@ -42,23 +31,53 @@ export type BalanceAction = EtherscanAction<
 >;
 
 export const balance: BalanceActionCall = async (
+  baseUrl: EtherscanBaseUrl,
   apiKey: string,
   params: BalanceParams,
 ): Promise<BalanceResponse> => {
-  const balanceResponse: BalanceResponse = {
-    status: 1,
-    message: "OK",
-    result: BigInt("1"),
-  };
+  const queryParamsString = `module=account&action=balance&address=${params.address}&tag=${params.tag}`;
+  const url = `${baseUrl}/?${queryParamsString}&apikey=${apiKey}`;
 
-  return balanceResponse;
+  const response = await fetch(url);
+  const balanceResponse = await response.json();
+
+  return {
+    ...balanceResponse,
+    result: BigInt(balanceResponse.result as string),
+  };
 };
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe } = import.meta.vitest;
+
   describe("balance", () => {
-    it("should return a valid balance response", () => {
-      expect(0).toBe(0);
+    const apiKey = process.env.ETHERSCAN_API_KEY ?? "";
+    const balanceParams = {
+      address: process.env.SEPOLIA_ADDRESS ?? "",
+      tag: "latest",
+    };
+
+    console.log(apiKey);
+    console.log(balanceParams.address);
+
+    it("should return a bigint result", async () => {
+      const { result } = await balance(
+        EtherscanBaseUrl.Sepolia,
+        apiKey,
+        balanceParams,
+      );
+
+      expect(result).toBeTypeOf("bigint");
+    });
+
+    it("should return a balance greater or equal than zero", async () => {
+      const { result } = await balance(
+        EtherscanBaseUrl.Sepolia,
+        apiKey,
+        balanceParams,
+      );
+
+      expect(result).toBeGreaterThanOrEqual(0);
     });
   });
 }

@@ -1,4 +1,5 @@
 import type { EtherscanParams, EtherscanResult } from "etherscan/types";
+import type { EtherscanBaseUrl } from "etherscan/constants";
 
 export type EtherscanResponseStatus = number;
 
@@ -15,7 +16,7 @@ export interface EtherscanResponse<T> {
 export type EtherscanActionCall<
   T extends EtherscanParams<any>,
   U extends EtherscanResponse<any>,
-> = (apiKey: string, params: T) => Promise<U>;
+> = (baseUrl: EtherscanBaseUrl, apiKey: string, params: T) => Promise<U>;
 
 export interface EtherscanAction<
   T extends string,

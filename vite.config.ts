@@ -16,5 +16,6 @@ export default defineConfig({
   test: {
     includeSource: ["src/**/*.ts"],
     include: ["test/**/*.{test,spec}.ts?(x)"],
+    setupFiles: ["dotenv/config"],
   },
 });
