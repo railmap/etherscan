@@ -1,11 +1,15 @@
-import { EtherscanBaseUrl } from "etherscan/constants";
+import * as S from "@effect/schema/Schema";
+import * as Either from "effect/Either";
+import queryString from "query-string";
+import { EtherscanBaseUrl, createResultSchema } from "etherscan/constants";
 import type {
   BalanceActionCall,
   BalanceParams,
-  BalanceRequest,
   BalanceResponse,
+  BalanceRequest,
 } from "./types";
-import queryString from "query-string";
+
+export const BalanceResultSchema = createResultSchema(S.bigint);
 
 export const balance: BalanceActionCall = async (
   baseUrl: EtherscanBaseUrl,
@@ -17,14 +21,16 @@ export const balance: BalanceActionCall = async (
     ...params,
   };
   const url = queryString.stringifyUrl({ url: baseUrl, query: { ...request } });
+  const parse = S.decodeEither(BalanceResultSchema);
 
   const response = await fetch(url);
-  const balanceResponse = await response.json();
 
-  return {
-    ...balanceResponse,
-    result: BigInt(balanceResponse.result as string),
-  };
+  const balanceResponse = Either.getOrThrowWith(
+    parse(await response.json()),
+    (e) => e,
+  );
+
+  return balanceResponse;
 };
 
 if (import.meta.vitest !== undefined) {

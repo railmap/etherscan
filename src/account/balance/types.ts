@@ -16,7 +16,7 @@ export type BalanceParam = AddressParam | TagParam;
 export type BalanceParams = EtherscanParams<BalanceParam>;
 
 export type BalanceRequest = EtherscanRequest<
-  "balance",
+  BalanceActionName,
   AccountModuleRequest,
   BalanceParams
 >;

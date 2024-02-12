@@ -21,6 +21,7 @@
 
     /* Types */
     "types": ["vitest/importMeta"],
+    "exactOptionalPropertyTypes": true,
 
     /* Paths */
     "paths": {
