@@ -25,22 +25,22 @@ export interface TagParam extends EtherscanParam {
 }
 
 export interface StartBlockParam extends EtherscanParam {
-  name: "address";
+  name: "startblock";
   value: bigint;
 }
 
 export interface EndBlockParam extends EtherscanParam {
-  name: "address";
+  name: "endblock";
   value: bigint;
 }
 
 export interface PageParam extends EtherscanParam {
-  name: "address";
+  name: "page";
   value: bigint;
 }
 
 export interface OffsetParam extends EtherscanParam {
-  name: "address";
+  name: "offset";
   value: number;
 }
 
