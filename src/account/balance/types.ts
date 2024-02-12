@@ -13,7 +13,7 @@ import type { AccountModuleRequest } from "etherscan/account";
 import { createResultSchema } from "etherscan/constants";
 
 /**
- Name of the `account/balance` action.
+ * Name of the `account/balance` action.
  */
 export type BalanceActionName = "balance";
 
