@@ -12,10 +12,12 @@ export interface AddressParam extends EtherscanParam {
   name: "address";
   value: string;
 }
-export type EarliestTag = "earliest";
-export type PendingTag = "pending";
-export type LatestTag = "latest";
-export type TagValue = EarliestTag | PendingTag | LatestTag;
+
+export enum TagValue {
+  Earliest = "earliest",
+  Pending = "pending",
+  Latest = "latest",
+}
 
 export interface TagParam extends EtherscanParam {
   name: "tag";
@@ -42,9 +44,10 @@ export interface OffsetParam extends EtherscanParam {
   value: number;
 }
 
-export type AscendingSort = "asc";
-export type DescendingSort = "desc";
-export type SortingPreference = AscendingSort | DescendingSort;
+export enum SortingPreference {
+  Ascending = "asc",
+  Descending = "desc",
+}
 
 export interface SortParam extends EtherscanParam {
   name: "address";
