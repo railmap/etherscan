@@ -1,16 +1,23 @@
 import * as S from "@effect/schema/Schema";
 import * as Either from "effect/Either";
 import queryString from "query-string";
-import { EtherscanBaseUrl, createResultSchema } from "etherscan/constants";
-import type {
-  BalanceActionCall,
-  BalanceParams,
-  BalanceResponse,
-  BalanceRequest,
+
+import { EtherscanBaseUrl } from "etherscan/constants";
+import {
+  type BalanceActionCall,
+  type BalanceParams,
+  type BalanceResponse,
+  type BalanceRequest,
+  BalanceResultSchema,
 } from "./types";
 
-export const BalanceResultSchema = createResultSchema(S.bigint);
-
+/**
+ * Returns the Ether balance of a given address.
+ *
+ * @param baseUrl - Etherscan API URL for either _mainnet_ or _testnet_ explorers.
+ * @param params  - Request parameters.
+ * @returns Promise object containing the response of the call.
+ */
 export const balance: BalanceActionCall = async (
   baseUrl: EtherscanBaseUrl,
   params: BalanceParams,
