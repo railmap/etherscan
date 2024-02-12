@@ -6,7 +6,9 @@ export interface EtherscanParam {
 export type EtherscanParams<T extends EtherscanParam> = Record<
   T["name"],
   T["value"]
->;
+> & {
+  apiKey: string;
+};
 
 export interface AddressParam extends EtherscanParam {
   name: "address";

@@ -4,6 +4,19 @@ import type {
   EtherscanResponseMessage,
 } from "etherscan/constants";
 
+export interface EtherscanModuleRequest<T extends string> {
+  module: T;
+}
+
+export type EtherscanRequest<
+  T extends string,
+  U extends EtherscanModuleRequest<any>,
+  V extends EtherscanParams<any>,
+> = U &
+  V & {
+    action: T;
+  };
+
 export type EtherscanResponseStatus = number;
 
 export interface EtherscanResponse<T> {
@@ -15,7 +28,7 @@ export interface EtherscanResponse<T> {
 export type EtherscanActionCall<
   T extends EtherscanParams<any>,
   U extends EtherscanResponse<any>,
-> = (baseUrl: EtherscanBaseUrl, apiKey: string, params: T) => Promise<U>;
+> = (baseUrl: EtherscanBaseUrl, params: T) => Promise<U>;
 
 export interface EtherscanAction<
   T extends string,
