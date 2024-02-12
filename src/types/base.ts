@@ -1,11 +1,10 @@
 import type { EtherscanParams, EtherscanResult } from "etherscan/types";
-import type { EtherscanBaseUrl } from "etherscan/constants";
+import type {
+  EtherscanBaseUrl,
+  EtherscanResponseMessage,
+} from "etherscan/constants";
 
 export type EtherscanResponseStatus = number;
-
-export type OkMessage = "OK";
-export type NotOkMessage = "NOTOK";
-export type EtherscanResponseMessage = OkMessage | NotOkMessage;
 
 export interface EtherscanResponse<T> {
   status: EtherscanResponseStatus;

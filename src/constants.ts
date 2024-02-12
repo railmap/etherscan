@@ -3,3 +3,8 @@ export enum EtherscanBaseUrl {
   Goerli = "https://api-goerli.etherscan.io/api",
   Sepolia = "https://api-sepolia.etherscan.io/api",
 }
+
+export enum EtherscanResponseMessage {
+  Ok = "OK",
+  NotOk = "NOTOK",
+}
