@@ -10,12 +10,12 @@ import type {
 } from "etherscan/types";
 import type { AddressParam, TagParam } from "etherscan/types/param";
 import type { AccountModuleRequest } from "etherscan/account";
-import { createResultSchema } from "etherscan/constants";
+import { ErrorResultSchema, createResponseSchema } from "etherscan/constants";
 
 /**
  * Name of the `account/balance` action.
  */
-export type BalanceActionName = "balance";
+export const BalanceActionName = "balance";
 
 /**
  * Parameter for the `account/balance` action.
@@ -31,7 +31,7 @@ export type BalanceParams = EtherscanParams<BalanceParam>;
  * Request items for the `account/balance` action.
  */
 export type BalanceRequest = EtherscanRequest<
-  BalanceActionName,
+  typeof BalanceActionName,
   AccountModuleRequest,
   BalanceParams
 >;
@@ -51,19 +51,22 @@ export type BalanceResponse = EtherscanResponse<BalanceResult>;
  */
 export type BalanceActionCall = EtherscanActionCall<
   BalanceParams,
-  BalanceResponse
+  BalanceResult
 >;
 
 /**
  * `account/balance` action.
  */
 export type BalanceAction = EtherscanAction<
-  BalanceActionName,
+  typeof BalanceActionName,
   BalanceActionCall
 >;
 
 /**
- * `account/balance` result schema for validating the response of
- * the action call during runtime.
+ * `account/balance` response schema for validating the action
+ * response during runtime.
  */
-export const BalanceResultSchema = createResultSchema(S.bigint);
+export const BalanceResponseSchema = S.union(
+  createResponseSchema(S.bigint),
+  ErrorResultSchema,
+);

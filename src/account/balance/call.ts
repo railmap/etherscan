@@ -6,10 +6,12 @@ import { EtherscanBaseUrl } from "etherscan/constants";
 import {
   type BalanceActionCall,
   type BalanceParams,
-  type BalanceResponse,
   type BalanceRequest,
-  BalanceResultSchema,
+  type BalanceResult,
+  BalanceResponseSchema,
+  BalanceActionName,
 } from "./types";
+import { AccountModuleName } from "etherscan/account";
 
 /**
  * Returns the Ether balance of a given address.
@@ -21,27 +23,29 @@ import {
 export const balance: BalanceActionCall = async (
   baseUrl: EtherscanBaseUrl,
   params: BalanceParams,
-): Promise<BalanceResponse> => {
+): Promise<BalanceResult> => {
   const request: BalanceRequest = {
-    module: "account",
-    action: "balance",
+    module: AccountModuleName,
+    action: BalanceActionName,
     ...params,
   };
+
   const url = queryString.stringifyUrl({ url: baseUrl, query: { ...request } });
-  const parse = S.decodeEither(BalanceResultSchema);
+  const parse = S.decodeEither(BalanceResponseSchema);
 
   const response = await fetch(url);
 
-  const balanceResponse = Either.getOrThrowWith(
+  const balanceResponse = Either.getOrElse(
     parse(await response.json()),
     (e) => e,
   );
 
-  return balanceResponse;
+  return balanceResponse.result;
 };
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe } = import.meta.vitest;
+  const { InvalidAddressFormatError } = await import("etherscan/types");
 
   describe("balance", () => {
     const balanceParams = {
@@ -60,6 +64,16 @@ if (import.meta.vitest !== undefined) {
       const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
 
       expect(result).toBeGreaterThanOrEqual(0);
+    });
+
+    it("should fail with InvalidAddressFormatError if the address format is invalid", async () => {
+      const invalidAddressParams = { ...balanceParams, address: "invalid" };
+      const { error } = await balance(
+        EtherscanBaseUrl.Sepolia,
+        invalidAddressParams,
+      );
+
+      expect(error).toBeInstanceOf(InvalidAddressFormatError);
     });
   });
 }

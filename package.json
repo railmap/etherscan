@@ -4,7 +4,8 @@
   "type": "module",
   "packageManager": "pnpm@8.15.1",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && pnpm build:docs",
+    "build:docs": "typedoc src/index.ts",
     "test": "pnpm test:unit",
     "test:unit": "vitest run",
     "coverage": "vitest run --coverage"

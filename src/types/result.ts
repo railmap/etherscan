@@ -1,3 +1,5 @@
+import type { EtherscanError } from "etherscan/errors";
+
 export interface EtherscanResultObjectItem {
   name: string;
   value: any;
@@ -10,6 +12,10 @@ export type EtherscanResultObject<T extends EtherscanResultObjectItem> = Record<
 
 export type EtherscanResultPrimitive = bigint;
 
-export type EtherscanResult<T> = T extends EtherscanResultObjectItem
-  ? EtherscanResultObject<T>
-  : EtherscanResultPrimitive;
+export interface EtherscanResult<T> {
+  result?: T extends EtherscanResultObjectItem
+    ? EtherscanResultObject<T>
+    : EtherscanResultPrimitive;
+
+  error?: EtherscanError;
+}

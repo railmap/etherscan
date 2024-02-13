@@ -4,7 +4,7 @@ import type { BalanceAction } from "etherscan/account/balance";
 /**
  * Name of the `account` action.
  */
-export type AccountModuleName = "account";
+export const AccountModuleName = "account";
 
 /**
  * Actions inside the `account` module.
@@ -14,7 +14,9 @@ export type AccountModuleActions = BalanceAction;
 /**
  * Request base for `account` module actions.
  */
-export type AccountModuleRequest = EtherscanModuleRequest<AccountModuleName>;
+export type AccountModuleRequest = EtherscanModuleRequest<
+  typeof AccountModuleName
+>;
 
 /**
  * `account` module.
