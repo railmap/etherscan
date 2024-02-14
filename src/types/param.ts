@@ -58,6 +58,6 @@ export enum SortingPreference {
 }
 
 export interface SortParam extends EtherscanParam {
-  name: "address";
+  name: "sort";
   value: SortingPreference;
 }

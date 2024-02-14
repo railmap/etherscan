@@ -35,24 +35,20 @@ export const balance: BalanceActionCall = async (
 
   const response = await fetch(url);
 
-  const balanceResponse = Either.getOrElse(
+  const balanceResult = Either.getOrElse(
     parse(await response.json()),
     (e) => e,
   );
 
-  return balanceResponse.result;
+  return balanceResult;
 };
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe } = import.meta.vitest;
-  const { InvalidAddressFormatError } = await import("etherscan/types");
+  const { balanceParamsFixture } = await import("./fixtures");
 
   describe("balance", () => {
-    const balanceParams = {
-      address: process.env.SEPOLIA_ADDRESS ?? "",
-      tag: "latest",
-      apiKey: process.env.ETHERSCAN_API_KEY ?? "",
-    };
+    const balanceParams = balanceParamsFixture();
 
     it("should return a bigint result", async () => {
       const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
@@ -66,14 +62,14 @@ if (import.meta.vitest !== undefined) {
       expect(result).toBeGreaterThanOrEqual(0);
     });
 
-    it("should fail with InvalidAddressFormatError if the address format is invalid", async () => {
+    it("should fail with an error if the address format is invalid", async () => {
       const invalidAddressParams = { ...balanceParams, address: "invalid" };
       const { error } = await balance(
         EtherscanBaseUrl.Sepolia,
         invalidAddressParams,
       );
 
-      expect(error).toBeInstanceOf(InvalidAddressFormatError);
+      expect(error).toStrictEqual("Error! Invalid address format");
     });
   });
 }
