@@ -24,3 +24,6 @@ dist-ssr
 
 # Environment variables files
 .env
+
+# Documentation files
+docs

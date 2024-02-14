@@ -5,5 +5,5 @@
     "node": true
   },
   "extends": ["standard-with-typescript", "prettier"],
-  "ignorePatterns": ["vite.config.ts", "docs"]
+  "ignorePatterns": ["vite.config.ts"]
 }
