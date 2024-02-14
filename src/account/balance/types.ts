@@ -10,7 +10,7 @@ import type {
 } from "etherscan/types";
 import type { AddressParam, TagParam } from "etherscan/types/param";
 import type { AccountModuleRequest } from "etherscan/account";
-import { createResponseSchema } from "etherscan/constants";
+import { createResponseSchema } from "etherscan/validation";
 
 /**
  * Name of the `account/balance` action.
