@@ -22,8 +22,11 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables files
+# Environment variables
 .env
 
-# Documentation files
+# Documentation
 docs
+
+# Coverage
+coverage
