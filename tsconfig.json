@@ -17,7 +17,16 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Types */
+    "types": ["vitest/importMeta"],
+    "exactOptionalPropertyTypes": true,
+
+    /* Paths */
+    "paths": {
+      "etherscan/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

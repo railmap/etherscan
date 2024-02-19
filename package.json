@@ -4,17 +4,30 @@
   "type": "module",
   "packageManager": "pnpm@8.15.1",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build && pnpm build:docs",
+    "build:docs": "typedoc src/index.ts",
+    "test": "pnpm test:unit",
+    "test:unit": "vitest run",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@vitest/coverage-v8": "^1.2.2",
+    "dotenv": "^16.4.2",
     "eslint": "^8.56.0",
-    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "prettier": "^3.2.5",
+    "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-tsconfig-paths": "^4.3.1",
+    "vitest": "^1.2.2"
+  },
+  "dependencies": {
+    "@effect/schema": "^0.62.3",
+    "effect": "^2.3.3",
+    "query-string": "^8.2.0"
   }
 }
