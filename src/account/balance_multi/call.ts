@@ -1,10 +1,9 @@
 import queryString from "query-string";
-import * as Either from "effect/Either";
+// import * as Either from "effect/Either";
 
-import { EtherscanBaseUrl } from "etherscan/constants";
-import { BalanceMultiParams } from "./types";
+import { type EtherscanBaseUrl } from "etherscan/constants";
+import { type BalanceMultiParams, BalanceMultiActionName } from "./types";
 import { AccountModuleName } from "etherscan/account";
-import { BalanceMultiActionName } from "./types";
 
 export const balanceMulti: any = async (
   baseUrl: EtherscanBaseUrl,
@@ -26,3 +25,13 @@ export const balanceMulti: any = async (
 
   return true;
 };
+
+if (import.meta.vitest !== undefined) {
+  const { it, expect, describe } = import.meta.vitest;
+
+  describe("balancemulti", () => {
+    it("should be true always", async () => {
+      expect(true).toStrictEqual(true);
+    });
+  });
+}

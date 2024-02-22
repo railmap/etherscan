@@ -61,3 +61,5 @@ export interface SortParam extends EtherscanParam {
   name: "sort";
   value: SortingPreference;
 }
+
+export type DefaultParams = EtherscanParams<AddressParam>;
