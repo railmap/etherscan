@@ -3,7 +3,7 @@ import * as S from "@effect/schema/Schema";
 import { createResponseSchema } from "etherscan/validation";
 
 /**
- * `account/multibalance` response dict representation
+ * `account/multibalance` response dict representation.
  */
 
 const BalanceMultiResultDictSchema = S.struct({
@@ -13,18 +13,18 @@ const BalanceMultiResultDictSchema = S.struct({
 
 /**
  * `account/multibalance` response array formed by *BalanceMultiResultDictSchema*
- *  dict
+ *  dict.
  */
 const BalanceMultiResultDictSchemaList = S.array(BalanceMultiResultDictSchema);
 
 /**
- * Name of the `account/balancemulti` action
+ * Name of the `account/balancemulti` action.
  */
 export const BalanceMultiActionName = "balancemulti";
 
 /**
  * `account/balancemulti` response schema for validating the action
- * response during runtime
+ * response during runtime.
  */
 
 export const BalanceMultiResponseSchema = createResponseSchema(

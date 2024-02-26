@@ -17,7 +17,13 @@ export interface AddressParam extends EtherscanParam {
   value: string;
 }
 
-export interface AddressMultiParam extends EtherscanParam {
+/**
+ * Extends the EtherscanParam interface to specify a parameter representing
+ * multiple addresses. It is used to pass an array of addresses
+ * as part of a request to the API.
+ */
+
+export interface AddressesParam extends EtherscanParam {
   name: "address";
   value: string[];
 }
@@ -66,5 +72,8 @@ export interface SortParam extends EtherscanParam {
   name: "sort";
   value: SortingPreference;
 }
-
+/**
+ * Represents the default parameters for requests that
+ * require an address parameter.
+ */
 export type DefaultParams = EtherscanParams<AddressParam>;

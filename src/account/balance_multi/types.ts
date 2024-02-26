@@ -6,7 +6,7 @@ import type {
   EtherscanResult,
 } from "etherscan/types";
 
-import type { AddressMultiParam, TagParam } from "etherscan/types/param";
+import type { AddressesParam, TagParam } from "etherscan/types/param";
 import type { AccountModuleRequest } from "..";
 import type { BalanceMultiActionName } from "./constants";
 
@@ -14,7 +14,7 @@ import type { BalanceMultiActionName } from "./constants";
  * Parameter for the `account/balancemulti` action.
  */
 
-export type BalanceMultiParam = AddressMultiParam | TagParam;
+export type BalanceMultiParam = AddressesParam | TagParam;
 
 /**
  * Parameters for the `account/balancemulti` action.
