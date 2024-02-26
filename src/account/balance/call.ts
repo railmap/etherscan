@@ -2,16 +2,15 @@ import * as S from "@effect/schema/Schema";
 import * as Either from "effect/Either";
 import queryString from "query-string";
 
-import { EtherscanBaseUrl } from "etherscan/constants";
+import { EtherscanBaseUrl, InvalidAddress } from "etherscan/constants";
 import {
   type BalanceActionCall,
   type BalanceParams,
   type BalanceRequest,
   type BalanceResult,
-  BalanceResponseSchema,
-  BalanceActionName,
 } from "./types";
 import { AccountModuleName } from "etherscan/account";
+import { BalanceActionName, BalanceResponseSchema } from "./constants";
 
 /**
  * Returns the Ether balance of a given address.
@@ -44,26 +43,31 @@ export const balance: BalanceActionCall = async (
 };
 
 if (import.meta.vitest !== undefined) {
-  const { it, expect, describe } = import.meta.vitest;
+  const { it, expect, describe, beforeAll } = import.meta.vitest;
   const { balanceParamsFixture } = await import("./fixtures");
 
   describe("balance", () => {
     const balanceParams = balanceParamsFixture();
+    let baseResult: bigint | undefined;
+
+    beforeAll(async () => {
+      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
+      baseResult = result;
+    });
 
     it("should return a bigint result", async () => {
-      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-
-      expect(result).toBeTypeOf("bigint");
+      expect(baseResult).toBeTypeOf("bigint");
     });
 
     it("should return a balance greater or equal than zero", async () => {
-      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-
-      expect(result).toBeGreaterThanOrEqual(0);
+      expect(baseResult).toBeGreaterThanOrEqual(0);
     });
 
     it("should fail with an error if the address format is invalid", async () => {
-      const invalidAddressParams = { ...balanceParams, address: "invalid" };
+      const invalidAddressParams = {
+        ...balanceParams,
+        address: InvalidAddress,
+      };
       const { error } = await balance(
         EtherscanBaseUrl.Sepolia,
         invalidAddressParams,

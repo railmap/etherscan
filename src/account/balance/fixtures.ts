@@ -1,3 +1,4 @@
+import { TagValue } from "etherscan/types";
 import type { BalanceParams } from "./types";
 import { baseParamsFixture } from "etherscan/fixtures";
 /**
@@ -6,7 +7,7 @@ import { baseParamsFixture } from "etherscan/fixtures";
  */
 export const balanceParamsFixture = (): BalanceParams => {
   return {
-    tag: "latest",
+    tag: TagValue.Latest,
     ...baseParamsFixture(),
   };
 };

@@ -1,7 +1,14 @@
-import type { EtherscanParams } from "etherscan/types";
+import type { EtherscanParams, EtherscanResult } from "etherscan/types";
 
-import type { AddressParam } from "etherscan/types/param";
+import type { AddressMultiParam, TagParam } from "etherscan/types/param";
 
-export type BalanceMultiParams = EtherscanParams<AddressParam>;
+export type BalanceMultiParam = AddressMultiParam | TagParam;
 
-export const BalanceMultiActionName = "balancemulti";
+export type BalanceMultiParams = EtherscanParams<BalanceMultiParam>;
+
+export interface balanceMultiResultFields {
+  address: string;
+  balance: bigint;
+}
+
+export type BalanceMultiResult = EtherscanResult<balanceMultiResultFields[]>;

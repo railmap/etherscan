@@ -17,6 +17,11 @@ export interface AddressParam extends EtherscanParam {
   value: string;
 }
 
+export interface AddressMultiParam extends EtherscanParam {
+  name: "address";
+  value: string[] | string;
+}
+
 export class InvalidAddressFormatError extends ParamError.extend(
   "Error! Invalid address format",
 ) {}
