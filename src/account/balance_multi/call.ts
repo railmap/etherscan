@@ -3,7 +3,12 @@ import * as S from "@effect/schema/Schema";
 import queryString from "query-string";
 
 import { EtherscanBaseUrl } from "etherscan/constants";
-import { type BalanceMultiResult, type BalanceMultiParams } from "./types";
+import type {
+  BalanceMultiResult,
+  BalanceMultiParams,
+  BalanceMultiRequest,
+  BalanceMultiActionCall,
+} from "./types";
 import { AccountModuleName } from "etherscan/account";
 import {
   BalanceMultiActionName,
@@ -13,11 +18,11 @@ import { balanceMultiParamsFixture } from "./fixtures";
 import { Either } from "effect";
 import { InvalidAddress } from "etherscan/fixtures";
 
-export const balanceMulti: any = async (
+export const balanceMulti: BalanceMultiActionCall = async (
   baseUrl: EtherscanBaseUrl,
   params: BalanceMultiParams,
 ): Promise<BalanceMultiResult> => {
-  const request: any = {
+  const request: BalanceMultiRequest = {
     module: AccountModuleName,
     action: BalanceMultiActionName,
     ...params,
