@@ -6,3 +6,5 @@ export const baseParamsFixture = (): DefaultParams => {
     apiKey: process.env.ETHERSCAN_API_KEY ?? "",
   };
 };
+
+export const InvalidAddress = "Invalid";

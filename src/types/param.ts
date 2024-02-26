@@ -9,7 +9,7 @@ export type EtherscanParams<T extends EtherscanParam> = Record<
   T["name"],
   T["value"]
 > & {
-  apiKey?: string;
+  apiKey?: string | undefined;
 };
 
 export interface AddressParam extends EtherscanParam {
@@ -19,7 +19,7 @@ export interface AddressParam extends EtherscanParam {
 
 export interface AddressMultiParam extends EtherscanParam {
   name: "address";
-  value: string[] | string;
+  value: string[];
 }
 
 export class InvalidAddressFormatError extends ParamError.extend(

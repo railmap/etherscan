@@ -14,5 +14,3 @@ export enum EtherscanResponseMessage {
   Ok = "OK",
   NotOk = "NOTOK",
 }
-
-export const InvalidAddress = "Invalid";

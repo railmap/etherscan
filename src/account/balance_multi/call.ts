@@ -1,9 +1,8 @@
 import * as S from "@effect/schema/Schema";
 
 import queryString from "query-string";
-// import * as Either from "effect/Either";
 
-import { EtherscanBaseUrl, InvalidAddress } from "etherscan/constants";
+import { EtherscanBaseUrl } from "etherscan/constants";
 import { type BalanceMultiResult, type BalanceMultiParams } from "./types";
 import { AccountModuleName } from "etherscan/account";
 import {
@@ -12,6 +11,7 @@ import {
 } from "./constants";
 import { balanceMultiParamsFixture } from "./fixtures";
 import { Either } from "effect";
+import { InvalidAddress } from "etherscan/fixtures";
 
 export const balanceMulti: any = async (
   baseUrl: EtherscanBaseUrl,

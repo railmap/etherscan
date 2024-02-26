@@ -2,7 +2,7 @@ import * as S from "@effect/schema/Schema";
 import * as Either from "effect/Either";
 import queryString from "query-string";
 
-import { EtherscanBaseUrl, InvalidAddress } from "etherscan/constants";
+import { EtherscanBaseUrl } from "etherscan/constants";
 import {
   type BalanceActionCall,
   type BalanceParams,
@@ -11,6 +11,7 @@ import {
 } from "./types";
 import { AccountModuleName } from "etherscan/account";
 import { BalanceActionName, BalanceResponseSchema } from "./constants";
+import { InvalidAddress } from "etherscan/fixtures";
 
 /**
  * Returns the Ether balance of a given address.

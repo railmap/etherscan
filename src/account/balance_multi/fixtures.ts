@@ -8,8 +8,8 @@ import { TagValue } from "etherscan/types/param";
 export const balanceMultiParamsFixture = (): BalanceMultiParams => {
   const { apiKey } = baseParamsFixture();
   return {
-    address: process.env.SEPOLIA_ADDRESSES_TO_CHECK?.split(",") ?? "",
-    apiKey: apiKey ?? "",
+    address: process.env.SEPOLIA_ADDRESSES_TO_CHECK?.split(",") ?? [],
+    apiKey: apiKey,
     tag: TagValue.Latest,
   };
 };
