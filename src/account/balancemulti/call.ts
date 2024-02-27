@@ -16,7 +16,6 @@ import {
 } from "./constants";
 import { balanceMultiParamsFixture } from "./fixtures";
 import { Either } from "effect";
-import { InvalidAddress } from "etherscan/fixtures";
 
 export const balanceMulti: BalanceMultiActionCall = async (
   baseUrl: EtherscanBaseUrl,
@@ -47,6 +46,7 @@ export const balanceMulti: BalanceMultiActionCall = async (
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
+  const { InvalidAddress } = await import("etherscan/fixtures");
 
   describe("balancemulti", () => {
     const balanceMultiParams = balanceMultiParamsFixture();
@@ -68,13 +68,11 @@ if (import.meta.vitest !== undefined) {
         expect(result.balance).toBeGreaterThanOrEqual(0);
       });
     });
-    it("should return an object with a balance greater or equal than zero", async () => {
+    it("should return an object containing only valid Ethereum addresses", async () => {
       baseResultList.forEach((result) => {
         expect(result.account).toMatch(/0x[a-fA-F0-9]{40}/);
       });
     });
-    // TODO: we should create a default error tests suit. This tests is repeated on
-    // balance call and probably will be in the next endpoints.
     it("should fail with an error if the address format is invalid", async () => {
       const invalidAddressParams = {
         ...balanceMultiParams,

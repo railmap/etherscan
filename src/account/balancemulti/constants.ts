@@ -5,7 +5,6 @@ import { createResponseSchema } from "etherscan/validation";
 /**
  * `account/multibalance` response dict representation.
  */
-
 const BalanceMultiResultDictSchema = S.struct({
   account: S.string,
   balance: S.bigint,
@@ -26,7 +25,6 @@ export const BalanceMultiActionName = "balancemulti";
  * `account/balancemulti` response schema for validating the action
  * response during runtime.
  */
-
 export const BalanceMultiResponseSchema = createResponseSchema(
   BalanceMultiResultDictSchemaList,
 );

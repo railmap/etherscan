@@ -9,11 +9,16 @@ export type EtherscanParams<T extends EtherscanParam> = Record<
   T["name"],
   T["value"]
 > & {
-  apiKey?: string | undefined;
+  apiKey?: string;
 };
 
 export interface AddressParam extends EtherscanParam {
   name: "address";
+  value: string;
+}
+
+export interface ApiKeyParam extends EtherscanParam {
+  name: "apiKey";
   value: string;
 }
 
@@ -73,7 +78,7 @@ export interface SortParam extends EtherscanParam {
   value: SortingPreference;
 }
 /**
- * Represents the default parameters for requests that
- * require an address parameter.
+ * Represents a set of parameters for querying actions involving
+ * a single Ethereum address, optionally includes an API Key
  */
-export type DefaultParams = EtherscanParams<AddressParam>;
+export type BaseParams = EtherscanParams<ApiKeyParam>;

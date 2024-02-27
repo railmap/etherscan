@@ -11,7 +11,6 @@ import {
 } from "./types";
 import { AccountModuleName } from "etherscan/account";
 import { BalanceActionName, BalanceResponseSchema } from "./constants";
-import { InvalidAddress } from "etherscan/fixtures";
 
 /**
  * Returns the Ether balance of a given address.
@@ -46,6 +45,7 @@ export const balance: BalanceActionCall = async (
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
   const { balanceParamsFixture } = await import("./fixtures");
+  const { InvalidAddress } = await import("etherscan/fixtures");
 
   describe("balance", () => {
     const balanceParams = balanceParamsFixture();

@@ -7,6 +7,7 @@ import { baseParamsFixture } from "etherscan/fixtures";
  */
 export const balanceParamsFixture = (): BalanceParams => {
   return {
+    address: process.env.SEPOLIA_ADDRESS ?? "",
     tag: TagValue.Latest,
     ...baseParamsFixture(),
   };

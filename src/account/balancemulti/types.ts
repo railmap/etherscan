@@ -13,19 +13,16 @@ import type { BalanceMultiActionName } from "./constants";
 /**
  * Parameter for the `account/balancemulti` action.
  */
-
 export type BalanceMultiParam = AddressesParam | TagParam;
 
 /**
  * Parameters for the `account/balancemulti` action.
  */
-
 export type BalanceMultiParams = EtherscanParams<BalanceMultiParam>;
 
 /**
  * Request from the `account/balancemulti` action.
  */
-
 export type BalanceMultiRequest = EtherscanRequest<
   typeof BalanceMultiActionName,
   AccountModuleRequest,
@@ -56,7 +53,6 @@ export type BalanceMultiActionCall = EtherscanActionCall<
 /**
  * `account/balancemulti` action.
  */
-
 export type BalanceMultiAction = EtherscanAction<
   typeof BalanceMultiActionName,
   BalanceMultiActionCall
