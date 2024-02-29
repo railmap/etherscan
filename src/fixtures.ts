@@ -1,4 +1,8 @@
-import type { BaseParams } from "./types/param";
+import type {
+  BaseAddressParamType,
+  BaseAddressesParamType,
+  BaseParams,
+} from "./types/param";
 
 /**
  * Base fixture with default fields needed for a request.
@@ -7,6 +11,23 @@ import type { BaseParams } from "./types/param";
 export const baseParamsFixture = (): BaseParams => {
   return {
     apiKey: process.env.ETHERSCAN_API_KEY ?? "",
+  };
+};
+
+export const baseAddressParam = (address?: string): BaseAddressParamType => {
+  const defaultAddress = process.env.SEPOLIA_ADDRESS ?? "";
+  return {
+    address: address ?? defaultAddress,
+  };
+};
+
+export const baseAddressesParam = (
+  addresses?: string,
+): BaseAddressesParamType => {
+  const defaultAddresses =
+    process.env.SEPOLIA_ADDRESSES_TO_CHECK?.split(",") ?? [];
+  return {
+    address: addresses?.split(",") ?? defaultAddresses,
   };
 };
 

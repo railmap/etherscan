@@ -45,15 +45,20 @@ export const balance: BalanceActionCall = async (
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
   const { balanceParamsFixture } = await import("./fixtures");
-  const { InvalidAddress } = await import("etherscan/fixtures");
+  const { InvalidAddress, baseAddressParam } = await import(
+    "etherscan/fixtures"
+  );
 
   describe("balance", () => {
-    const balanceParams = balanceParamsFixture();
-    let baseResult: bigint | undefined;
+    const balanceParams = balanceParamsFixture(baseAddressParam());
+    const invalidAddressParams = balanceParamsFixture(
+      baseAddressParam(InvalidAddress),
+    );
+    let baseResult: bigint;
 
     beforeAll(async () => {
       const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-      baseResult = result;
+      baseResult = result ?? -1n;
     });
 
     it("should return a bigint result", async () => {
@@ -65,10 +70,6 @@ if (import.meta.vitest !== undefined) {
     });
 
     it("should fail with an error if the address format is invalid", async () => {
-      const invalidAddressParams = {
-        ...balanceParams,
-        address: InvalidAddress,
-      };
       const { error } = await balance(
         EtherscanBaseUrl.Sepolia,
         invalidAddressParams,

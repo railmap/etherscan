@@ -4,6 +4,7 @@ import type {
   EtherscanParams,
   EtherscanRequest,
   EtherscanResult,
+  EtherscanResultObjectTypes,
 } from "etherscan/types";
 
 import type { AddressesParam, TagParam } from "etherscan/types/param";
@@ -32,15 +33,18 @@ export type BalanceMultiRequest = EtherscanRequest<
 /**
  * Result field type from the response of the `account/balancemulti` action.
  */
-export interface balanceMultiResultFields {
-  address: string;
+export interface BalanceMultiResultFields {
+  account: string;
   balance: bigint;
 }
 
 /**
  * Response from the `account/balancemulti` action.
  */
-export type BalanceMultiResult = EtherscanResult<balanceMultiResultFields[]>;
+export type BalanceMultiResult = EtherscanResult<
+  BalanceMultiResultFields,
+  EtherscanResultObjectTypes.Array
+>;
 
 /**
  * `account/balancemulti` action call.

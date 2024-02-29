@@ -8,6 +8,7 @@ import type {
   BalanceMultiParams,
   BalanceMultiRequest,
   BalanceMultiActionCall,
+  BalanceMultiResultFields,
 } from "./types";
 import { AccountModuleName } from "etherscan/account";
 import {
@@ -46,38 +47,45 @@ export const balanceMulti: BalanceMultiActionCall = async (
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
-  const { InvalidAddress } = await import("etherscan/fixtures");
+  const { InvalidAddress, baseAddressesParam } = await import(
+    "etherscan/fixtures"
+  );
 
   describe("balancemulti", () => {
-    const balanceMultiParams = balanceMultiParamsFixture();
-    let baseResultList: [];
+    const balanceMultiParams = balanceMultiParamsFixture(baseAddressesParam());
+    const invalidAddressParams = balanceMultiParamsFixture(
+      baseAddressesParam(InvalidAddress),
+    );
+
+    let baseResultList: BalanceMultiResultFields[];
+    const addressRegExp = /0x[a-fA-F0-9]{40}/;
 
     beforeAll(async () => {
       const { result } = await balanceMulti(
         EtherscanBaseUrl.Sepolia,
         balanceMultiParams,
       );
-      baseResultList = result;
+      baseResultList = result ?? [];
     });
 
     it("should return an object result", async () => {
       expect(baseResultList).toBeTypeOf("object");
     });
     it("should return an object with a balance greater or equal than zero", async () => {
-      baseResultList.forEach((result) => {
-        expect(result.balance).toBeGreaterThanOrEqual(0);
+      const balanceValid = baseResultList.every((result) => {
+        return result.balance >= 0;
       });
+
+      expect(balanceValid).toStrictEqual(true);
     });
     it("should return an object containing only valid Ethereum addresses", async () => {
-      baseResultList.forEach((result) => {
-        expect(result.account).toMatch(/0x[a-fA-F0-9]{40}/);
+      const addressesValid = baseResultList.every((result) => {
+        return addressRegExp.test(result.account);
       });
+
+      expect(addressesValid).toStrictEqual(true);
     });
     it("should fail with an error if the address format is invalid", async () => {
-      const invalidAddressParams = {
-        ...balanceMultiParams,
-        address: InvalidAddress,
-      };
       const { error } = await balanceMulti(
         EtherscanBaseUrl.Sepolia,
         invalidAddressParams,
