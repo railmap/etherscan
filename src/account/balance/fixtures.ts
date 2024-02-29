@@ -4,7 +4,8 @@ import { baseParamsFixture } from "etherscan/fixtures";
 
 /**
  * Base fixture for BalanceParams.
- * @returns BalanceParams object populated with environment vars.
+ * @param {BaseAddressParamType} address - An object containing a single Ethereum address.
+ * @returns {BalanceParams} A `BalanceParams` object with the Ethereum address, base parameters, and the latest tag value.
  */
 export const balanceParamsFixture = (
   address: BaseAddressParamType,

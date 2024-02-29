@@ -18,6 +18,13 @@ import {
 import { balanceMultiParamsFixture } from "./fixtures";
 import { Either } from "effect";
 
+/**
+ * Returns the Ether balance of a given multiple address.
+ *
+ * @param baseUrl - Etherscan API URL for either _mainnet_ or _testnet_ explorers.
+ * @param params  - Request parameters.
+ * @returns Promise object containing the response of the call.
+ */
 export const balanceMulti: BalanceMultiActionCall = async (
   baseUrl: EtherscanBaseUrl,
   params: BalanceMultiParams,

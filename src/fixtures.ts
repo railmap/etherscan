@@ -14,6 +14,12 @@ export const baseParamsFixture = (): BaseParams => {
   };
 };
 
+/**
+ * Creates an object with an `address` property containing an Ethereum address.
+ *
+ * @param {string} [address] - Optional Ethereum address.
+ * @returns {BaseAddressParamType} An object with the `address` property.
+ */
 export const baseAddressParam = (address?: string): BaseAddressParamType => {
   const defaultAddress = process.env.SEPOLIA_ADDRESS ?? "";
   return {
@@ -21,6 +27,13 @@ export const baseAddressParam = (address?: string): BaseAddressParamType => {
   };
 };
 
+/**
+ * Creates an object with an `address` property containing an array of Ethereum addresses.
+ * The addresses are taken from the `addresses` parameter, split by commas.
+ *
+ * @param {string} [addresses] - A comma-separated string of Ethereum addresses.
+ * @returns {BaseAddressesParamType} An object with the `address` property containing an array of addresses.
+ */
 export const baseAddressesParam = (
   addresses?: string,
 ): BaseAddressesParamType => {

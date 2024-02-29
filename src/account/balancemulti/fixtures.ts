@@ -4,7 +4,8 @@ import { type BaseAddressesParamType, TagValue } from "etherscan/types/param";
 
 /**
  * Base fixture for BalanceMultiParams.
- * @returns BalanceMultiParams object populated with environment vars.
+ * @param {BaseAddressesParamType} addresses - An object containing an array of Ethereum addresses.
+ * @returns {BalanceMultiParams} A `BalanceMultiParams` object with the Ethereum addresses, base parameters, and the latest tag value.
  */
 export const balanceMultiParamsFixture = (
   addresses: BaseAddressesParamType,
