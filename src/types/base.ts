@@ -1,4 +1,8 @@
-import type { EtherscanParams, EtherscanResult } from "etherscan/types";
+import type {
+  EtherscanParams,
+  EtherscanResult,
+  EtherscanResultType,
+} from "etherscan/types";
 import type {
   EtherscanBaseUrl,
   EtherscanResponseMessage,
@@ -19,7 +23,7 @@ export type EtherscanRequest<
 
 export type EtherscanResponseStatus = number;
 
-export interface EtherscanResponse<T> {
+export interface EtherscanResponse<T extends EtherscanResultType> {
   status: EtherscanResponseStatus;
   message: EtherscanResponseMessage;
   result: EtherscanResult<T>;

@@ -1,13 +1,32 @@
 import type { BalanceParams } from "./types";
+import {
+  FixtureValidity,
+  apiKeyFixtureFactory,
+  addressFixtureFactory,
+  tagFixtureFactory,
+} from "etherscan/fixtures";
+
+export type BalanceParamsFixture = {
+  [Property in keyof BalanceParams]?: FixtureValidity;
+};
 
 /**
  * Base fixture for BalanceParams.
- * @returns BalanceParams object populated with environment vars.
+ * @param {AddressParam} fixtureValidity - An object containing param names and their validity.
+ * @returns {BalanceParams} A `BalanceParams` object with the Ethereum address, base parameters, and the latest tag value.
  */
-export const balanceParamsFixture = (): BalanceParams => {
+export const balanceParamsFixtureFactory = (
+  fixtureValidity: BalanceParamsFixture = {},
+): BalanceParams => {
+  const validity = {
+    apiKey: FixtureValidity.Valid,
+    address: FixtureValidity.Valid,
+    tag: FixtureValidity.Valid,
+    ...fixtureValidity,
+  };
   return {
-    address: process.env.SEPOLIA_ADDRESS ?? "",
-    tag: "latest",
-    apiKey: process.env.ETHERSCAN_API_KEY ?? "",
+    ...apiKeyFixtureFactory(validity.apiKey),
+    ...addressFixtureFactory(validity.address),
+    ...tagFixtureFactory(validity.tag),
   };
 };

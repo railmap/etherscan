@@ -3,15 +3,14 @@ import * as Either from "effect/Either";
 import queryString from "query-string";
 
 import { EtherscanBaseUrl } from "etherscan/constants";
+import { AccountModuleName } from "etherscan/account";
 import {
   type BalanceActionCall,
   type BalanceParams,
   type BalanceRequest,
   type BalanceResult,
-  BalanceResponseSchema,
-  BalanceActionName,
 } from "./types";
-import { AccountModuleName } from "etherscan/account";
+import { BalanceActionName, BalanceResponseSchema } from "./constants";
 
 /**
  * Returns the Ether balance of a given address.
@@ -44,26 +43,33 @@ export const balance: BalanceActionCall = async (
 };
 
 if (import.meta.vitest !== undefined) {
-  const { it, expect, describe } = import.meta.vitest;
-  const { balanceParamsFixture } = await import("./fixtures");
+  const { it, expect, describe, beforeAll } = import.meta.vitest;
+  const { FixtureValidity } = await import("etherscan/fixtures");
+  const { balanceParamsFixtureFactory } = await import("./fixtures");
 
   describe("balance", () => {
-    const balanceParams = balanceParamsFixture();
+    const defaultBalanceParams = balanceParamsFixtureFactory();
+    const invalidAddressParams = balanceParamsFixtureFactory({
+      address: FixtureValidity.Invalid,
+    });
+    let defaultResultObject: BalanceResult;
+
+    beforeAll(async () => {
+      defaultResultObject = await balance(
+        EtherscanBaseUrl.Sepolia,
+        defaultBalanceParams,
+      );
+    });
 
     it("should return a bigint result", async () => {
-      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-
-      expect(result).toBeTypeOf("bigint");
+      expect(defaultResultObject.result).toBeTypeOf("bigint");
     });
 
     it("should return a balance greater or equal than zero", async () => {
-      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-
-      expect(result).toBeGreaterThanOrEqual(0);
+      expect(defaultResultObject.result).toBeGreaterThanOrEqual(0);
     });
 
     it("should fail with an error if the address format is invalid", async () => {
-      const invalidAddressParams = { ...balanceParams, address: "invalid" };
       const { error } = await balance(
         EtherscanBaseUrl.Sepolia,
         invalidAddressParams,

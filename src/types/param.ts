@@ -5,16 +5,43 @@ export interface EtherscanParam {
   value: any;
 }
 
+export interface ParamValueAsArray<T extends EtherscanParam>
+  extends EtherscanParam {
+  name: T["name"];
+  value: Array<T["value"]>;
+}
+
+export interface ApiKeyParam extends EtherscanParam {
+  name: "apiKey";
+  value: string;
+}
+
+export type ApiKeyParamField = Record<
+  ApiKeyParam["name"],
+  ApiKeyParam["value"]
+>;
+
 export type EtherscanParams<T extends EtherscanParam> = Record<
   T["name"],
   T["value"]
-> & {
-  apiKey?: string;
-};
+> &
+  Partial<ApiKeyParamField>;
 
 export interface AddressParam extends EtherscanParam {
   name: "address";
   value: string;
+}
+
+export type AddressArrayParam = ParamValueAsArray<AddressParam>;
+
+/**
+ * Extends the EtherscanParam interface to specify a parameter representing
+ * multiple addresses. It is used to pass an array of addresses
+ * as part of a request to the API.
+ */
+export interface AddressesParam extends EtherscanParam {
+  name: "address";
+  value: string[];
 }
 
 export class InvalidAddressFormatError extends ParamError.extend(

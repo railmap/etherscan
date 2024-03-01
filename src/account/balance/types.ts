@@ -1,5 +1,3 @@
-import * as S from "@effect/schema/Schema";
-
 import type {
   EtherscanAction,
   EtherscanActionCall,
@@ -10,12 +8,7 @@ import type {
 } from "etherscan/types";
 import type { AddressParam, TagParam } from "etherscan/types/param";
 import type { AccountModuleRequest } from "etherscan/account";
-import { createResponseSchema } from "etherscan/validation";
-
-/**
- * Name of the `account/balance` action.
- */
-export const BalanceActionName = "balance";
+import type { BalanceActionName } from "./constants";
 
 /**
  * Parameter for the `account/balance` action.
@@ -61,9 +54,3 @@ export type BalanceAction = EtherscanAction<
   typeof BalanceActionName,
   BalanceActionCall
 >;
-
-/**
- * `account/balance` response schema for validating the action
- * response during runtime.
- */
-export const BalanceResponseSchema = createResponseSchema(S.bigint);
