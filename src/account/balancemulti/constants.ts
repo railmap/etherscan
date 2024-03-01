@@ -12,7 +12,6 @@ const BalanceMultiResultDictSchema = S.struct({
 
 /**
  * `account/multibalance` response array formed by *BalanceMultiResultDictSchema*
- *  dict.
  */
 const BalanceMultiResultDictSchemaList = S.array(BalanceMultiResultDictSchema);
 
