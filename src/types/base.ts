@@ -31,7 +31,7 @@ export interface EtherscanResponse<T extends EtherscanResultType> {
 
 export type EtherscanActionCall<
   T extends EtherscanParams<any>,
-  U extends EtherscanResult<any, any>,
+  U extends EtherscanResult<any>,
 > = (baseUrl: EtherscanBaseUrl, params: T) => Promise<U>;
 
 export interface EtherscanAction<

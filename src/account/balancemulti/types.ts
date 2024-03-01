@@ -4,17 +4,16 @@ import type {
   EtherscanParams,
   EtherscanRequest,
   EtherscanResult,
-  EtherscanResultObjectTypes,
 } from "etherscan/types";
 
-import type { AddressesParam, TagParam } from "etherscan/types/param";
+import type { AddressArrayParam, TagParam } from "etherscan/types/param";
 import type { AccountModuleRequest } from "..";
 import type { BalanceMultiActionName } from "./constants";
 
 /**
  * Parameter for the `account/balancemulti` action.
  */
-export type BalanceMultiParam = AddressesParam | TagParam;
+export type BalanceMultiParam = AddressArrayParam | TagParam;
 
 /**
  * Parameters for the `account/balancemulti` action.
@@ -33,7 +32,7 @@ export type BalanceMultiRequest = EtherscanRequest<
 /**
  * Result field type from the response of the `account/balancemulti` action.
  */
-export interface BalanceMultiResultFields {
+export interface BalanceMultiResultObject {
   account: string;
   balance: bigint;
 }
@@ -41,10 +40,7 @@ export interface BalanceMultiResultFields {
 /**
  * Response from the `account/balancemulti` action.
  */
-export type BalanceMultiResult = EtherscanResult<
-  BalanceMultiResultFields,
-  EtherscanResultObjectTypes.Array
->;
+export type BalanceMultiResult = EtherscanResult<BalanceMultiResultObject[]>;
 
 /**
  * `account/balancemulti` action call.

@@ -8,18 +8,16 @@ import type {
   BalanceMultiParams,
   BalanceMultiRequest,
   BalanceMultiActionCall,
-  BalanceMultiResultFields,
 } from "./types";
 import { AccountModuleName } from "etherscan/account";
 import {
   BalanceMultiActionName,
   BalanceMultiResponseSchema,
 } from "./constants";
-import { balanceMultiParamsFixture } from "./fixtures";
 import { Either } from "effect";
 
 /**
- * Returns the Ether balance of a given multiple address.
+ * Returns the Ether balance for multiple addresses.
  *
  * @param baseUrl - Etherscan API URL for either _mainnet_ or _testnet_ explorers.
  * @param params  - Request parameters.
@@ -54,44 +52,46 @@ export const balanceMulti: BalanceMultiActionCall = async (
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
-  const { InvalidAddress, baseAddressesParam } = await import(
-    "etherscan/fixtures"
-  );
+  const { FixtureValidity } = await import("etherscan/fixtures");
+  const { balanceMultiParamsFixtureFactory } = await import("./fixtures");
 
   describe("balancemulti", () => {
-    const balanceMultiParams = balanceMultiParamsFixture(baseAddressesParam());
-    const invalidAddressParams = balanceMultiParamsFixture(
-      baseAddressesParam(InvalidAddress),
-    );
+    const balanceMultiParams = balanceMultiParamsFixtureFactory();
+    const invalidAddressParams = balanceMultiParamsFixtureFactory({
+      address: FixtureValidity.Invalid,
+    });
 
-    let baseResultList: BalanceMultiResultFields[];
+    let defaultResultObject: BalanceMultiResult;
     const addressRegExp = /0x[a-fA-F0-9]{40}/;
 
     beforeAll(async () => {
-      const { result } = await balanceMulti(
+      defaultResultObject = await balanceMulti(
         EtherscanBaseUrl.Sepolia,
         balanceMultiParams,
       );
-      baseResultList = result ?? [];
+      defaultResultObject.result ??= [{ account: "", balance: -1n }];
     });
 
     it("should return an object result", async () => {
-      expect(baseResultList).toBeTypeOf("object");
+      expect(defaultResultObject.result).toBeTypeOf("object");
     });
+
     it("should return an object with a balance greater or equal than zero", async () => {
-      const balanceValid = baseResultList.every((result) => {
+      const balanceValid = defaultResultObject.result.every((result) => {
         return result.balance >= 0;
       });
 
       expect(balanceValid).toStrictEqual(true);
     });
-    it("should return an object containing only valid Ethereum addresses", async () => {
-      const addressesValid = baseResultList.every((result) => {
+
+    it("should return an array containing only valid Ethereum addresses", async () => {
+      const addressesValid = defaultResultObject.result.every((result) => {
         return addressRegExp.test(result.account);
       });
 
       expect(addressesValid).toStrictEqual(true);
     });
+
     it("should fail with an error if the address format is invalid", async () => {
       const { error } = await balanceMulti(
         EtherscanBaseUrl.Sepolia,

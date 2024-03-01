@@ -1,18 +1,33 @@
 import type { BalanceMultiParams } from "./types";
-import { baseParamsFixture } from "etherscan/fixtures";
-import { type BaseAddressesParamType, TagValue } from "etherscan/types/param";
+import {
+  FixtureValidity,
+  apiKeyFixtureFactory,
+  addressArrayFixtureFactory,
+  tagFixtureFactory,
+} from "etherscan/fixtures";
+
+export type BalanceMultiParamsFixture = {
+  [Property in keyof BalanceMultiParams]?: FixtureValidity;
+};
 
 /**
  * Base fixture for BalanceMultiParams.
- * @param {BaseAddressesParamType} addresses - An object containing an array of Ethereum addresses.
- * @returns {BalanceMultiParams} A `BalanceMultiParams` object with the Ethereum addresses, base parameters, and the latest tag value.
+ * @param {BaseAddressesParamType} fixtureValidity - An object containing the validity of parameters contained by the fixture.
+ * @returns {BalanceMultiParams} A `BalanceMultiParams` object with the Ethereum addresses, base parameters and tag value.
  */
-export const balanceMultiParamsFixture = (
-  addresses: BaseAddressesParamType,
+export const balanceMultiParamsFixtureFactory = (
+  fixtureValidity: BalanceMultiParamsFixture = {},
 ): BalanceMultiParams => {
+  const validity = {
+    apiKey: FixtureValidity.Valid,
+    address: FixtureValidity.Valid,
+    tag: FixtureValidity.Valid,
+    ...fixtureValidity,
+  };
+
   return {
-    ...baseParamsFixture(),
-    address: addresses.address,
-    tag: TagValue.Latest,
+    ...apiKeyFixtureFactory(validity.apiKey),
+    ...addressArrayFixtureFactory(validity.address),
+    ...tagFixtureFactory(validity.tag),
   };
 };

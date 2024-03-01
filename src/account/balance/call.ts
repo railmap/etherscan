@@ -3,13 +3,13 @@ import * as Either from "effect/Either";
 import queryString from "query-string";
 
 import { EtherscanBaseUrl } from "etherscan/constants";
+import { AccountModuleName } from "etherscan/account";
 import {
   type BalanceActionCall,
   type BalanceParams,
   type BalanceRequest,
   type BalanceResult,
 } from "./types";
-import { AccountModuleName } from "etherscan/account";
 import { BalanceActionName, BalanceResponseSchema } from "./constants";
 
 /**
@@ -44,29 +44,29 @@ export const balance: BalanceActionCall = async (
 
 if (import.meta.vitest !== undefined) {
   const { it, expect, describe, beforeAll } = import.meta.vitest;
-  const { balanceParamsFixture } = await import("./fixtures");
-  const { InvalidAddress, baseAddressParam } = await import(
-    "etherscan/fixtures"
-  );
+  const { FixtureValidity } = await import("etherscan/fixtures");
+  const { balanceParamsFixtureFactory } = await import("./fixtures");
 
   describe("balance", () => {
-    const balanceParams = balanceParamsFixture(baseAddressParam());
-    const invalidAddressParams = balanceParamsFixture(
-      baseAddressParam(InvalidAddress),
-    );
-    let baseResult: bigint;
+    const defaultBalanceParams = balanceParamsFixtureFactory();
+    const invalidAddressParams = balanceParamsFixtureFactory({
+      address: FixtureValidity.Invalid,
+    });
+    let defaultResultObject: BalanceResult;
 
     beforeAll(async () => {
-      const { result } = await balance(EtherscanBaseUrl.Sepolia, balanceParams);
-      baseResult = result ?? -1n;
+      defaultResultObject = await balance(
+        EtherscanBaseUrl.Sepolia,
+        defaultBalanceParams,
+      );
     });
 
     it("should return a bigint result", async () => {
-      expect(baseResult).toBeTypeOf("bigint");
+      expect(defaultResultObject.result).toBeTypeOf("bigint");
     });
 
     it("should return a balance greater or equal than zero", async () => {
-      expect(baseResult).toBeGreaterThanOrEqual(0);
+      expect(defaultResultObject.result).toBeGreaterThanOrEqual(0);
     });
 
     it("should fail with an error if the address format is invalid", async () => {

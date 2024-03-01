@@ -1,51 +1,105 @@
 import type {
-  BaseAddressParamType,
-  BaseAddressesParamType,
-  BaseParams,
-} from "./types/param";
+  ApiKeyParam,
+  AddressArrayParam,
+  AddressParam,
+  TagParam,
+  EtherscanParams,
+  EtherscanParam,
+} from "etherscan/types/param";
+import { TagValue } from "etherscan/types/param";
 
-/**
- * Base fixture with default fields needed for a request.
- * @returns DefaultParams object populated with environment vars.
- */
-export const baseParamsFixture = (): BaseParams => {
-  return {
-    apiKey: process.env.ETHERSCAN_API_KEY ?? "",
+export enum FixtureValidity {
+  Valid,
+  Invalid,
+  Default,
+}
+
+export type ParamFixtureFactory<T extends EtherscanParam> = (
+  validity: FixtureValidity,
+) => EtherscanParams<T>;
+
+export interface FixtureFactoryParamValues<T extends EtherscanParam> {
+  valid: () => T["value"];
+  invalid: () => T["value"];
+  default: () => T["value"];
+}
+
+export const createParamFixtureFactory = <T extends EtherscanParam>(
+  paramName: T["name"],
+  paramValues: FixtureFactoryParamValues<T>,
+): ParamFixtureFactory<T> => {
+  const paramFixtureFactory = (
+    validity: FixtureValidity,
+  ): EtherscanParams<T> => {
+    let param: T["value"];
+
+    switch (validity) {
+      case FixtureValidity.Valid:
+        param = paramValues.valid();
+        break;
+      case FixtureValidity.Invalid:
+        param = paramValues.invalid();
+        break;
+      default:
+        param = paramValues.default();
+        break;
+    }
+
+    const params: EtherscanParams<T> = { [paramName]: param };
+    return params;
   };
+  return paramFixtureFactory;
 };
 
 /**
- * Creates an object with an `address` property containing an Ethereum address.
- *
- * @param {string} [address] - Optional Ethereum address.
- * @returns {BaseAddressParamType} An object with the `address` property.
+ * API key param fixture factory.
+ * @param fixtureType Validity of the fixture to return.
+ * @returns EtherscanParams object populated with desired fixture.
  */
-export const baseAddressParam = (address?: string): BaseAddressParamType => {
-  const defaultAddress = process.env.SEPOLIA_ADDRESS ?? "";
-  return {
-    address: address ?? defaultAddress,
-  };
-};
+export const apiKeyFixtureFactory = createParamFixtureFactory<ApiKeyParam>(
+  "apiKey",
+  {
+    valid: () => process.env.ETHERSCAN_API_KEY ?? "",
+    invalid: () => "invalid",
+    default: () => "",
+  },
+);
 
 /**
- * Creates an object with an `address` property containing an array of Ethereum addresses.
- * The addresses are taken from the `addresses` parameter, split by commas.
- *
- * @param {string} [addresses] - A comma-separated string of Ethereum addresses.
- * @returns {BaseAddressesParamType} An object with the `address` property containing an array of addresses.
+ * Address param fixture factory.
+ * @param fixtureType Validity of the fixture to return.
+ * @returns EtherscanParams object populated with desired fixture.
  */
-export const baseAddressesParam = (
-  addresses?: string,
-): BaseAddressesParamType => {
-  const defaultAddresses =
-    process.env.SEPOLIA_ADDRESSES_TO_CHECK?.split(",") ?? [];
-  return {
-    address: addresses?.split(",") ?? defaultAddresses,
-  };
-};
+export const addressFixtureFactory = createParamFixtureFactory<AddressParam>(
+  "address",
+  {
+    valid: () => process.env.SEPOLIA_ADDRESS ?? "",
+    invalid: () => "invalid",
+    default: () => "",
+  },
+);
 
 /**
- * A constant used in test fixtures for negative test cases to
- * verify that an address is invalid.
+ * Address array param fixture factory.
+ * @param fixtureType Validity of the fixture to return.
+ * @returns EtherscanParams object populated with desired fixture.
  */
-export const InvalidAddress = "Invalid";
+export const addressArrayFixtureFactory =
+  createParamFixtureFactory<AddressArrayParam>("address", {
+    valid: () => (process.env.SEPOLIA_ADDRESS_ARRAY ?? "").split(","),
+    invalid: () => ["invalid"],
+    default: () => [],
+  });
+
+/**
+ * Tag param fixture factory.
+ * @param fixtureType Validity of the fixture to return.
+ * @returns EtherscanParams object populated with desired fixture.
+ */
+export const tagFixtureFactory = createParamFixtureFactory<TagParam>("tag", {
+  valid: () => TagValue.Latest,
+  // @ts-expect-error Explicit invalid value used for testing
+  invalid: () => "invalid",
+  // @ts-expect-error Explicit empty value used for testing
+  default: () => "",
+});

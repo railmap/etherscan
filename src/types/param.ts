@@ -5,6 +5,12 @@ export interface EtherscanParam {
   value: any;
 }
 
+export interface ParamValueAsArray<T extends EtherscanParam>
+  extends EtherscanParam {
+  name: T["name"];
+  value: Array<T["value"]>;
+}
+
 export interface ApiKeyParam extends EtherscanParam {
   name: "apiKey";
   value: string;
@@ -26,12 +32,13 @@ export interface AddressParam extends EtherscanParam {
   value: string;
 }
 
+export type AddressArrayParam = ParamValueAsArray<AddressParam>;
+
 /**
  * Extends the EtherscanParam interface to specify a parameter representing
  * multiple addresses. It is used to pass an array of addresses
  * as part of a request to the API.
  */
-
 export interface AddressesParam extends EtherscanParam {
   name: "address";
   value: string[];
@@ -80,16 +87,4 @@ export enum SortingPreference {
 export interface SortParam extends EtherscanParam {
   name: "sort";
   value: SortingPreference;
-}
-/**
- * Represents a set of parameters for querying actions involving
- * a single Ethereum address
- */
-export type BaseParams = EtherscanParams<any>;
-
-export interface BaseAddressParamType {
-  address: string;
-}
-export interface BaseAddressesParamType {
-  address: string[];
 }
