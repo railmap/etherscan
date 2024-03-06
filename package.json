@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && vite build && pnpm build:docs",
     "build:docs": "typedoc src/index.ts",
+    "startlight": "cd ./civil-conjunction && pnpm dev",
     "test": "pnpm test:unit",
     "test:unit": "vitest run",
     "coverage": "vitest run --coverage"
