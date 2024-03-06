@@ -45,9 +45,10 @@ export const createParamFixtureFactory = <T extends EtherscanParam>(
         break;
     }
 
-    const params: EtherscanParams<T> = { [paramName]: param };
-    return params;
+    const params = { [paramName]: param };
+    return params as EtherscanParams<T>;
   };
+
   return paramFixtureFactory;
 };
 
@@ -59,7 +60,7 @@ export const createParamFixtureFactory = <T extends EtherscanParam>(
 export const apiKeyFixtureFactory = createParamFixtureFactory<ApiKeyParam>(
   "apiKey",
   {
-    valid: () => process.env.ETHERSCAN_API_KEY ?? "",
+    valid: () => import.meta.env.VITE_ETHERSCAN_API_KEY ?? "",
     invalid: () => "invalid",
     default: () => "",
   },
@@ -73,7 +74,7 @@ export const apiKeyFixtureFactory = createParamFixtureFactory<ApiKeyParam>(
 export const addressFixtureFactory = createParamFixtureFactory<AddressParam>(
   "address",
   {
-    valid: () => process.env.SEPOLIA_ADDRESS ?? "",
+    valid: () => import.meta.env.VITE_SEPOLIA_ADDRESS ?? "",
     invalid: () => "invalid",
     default: () => "",
   },
@@ -86,7 +87,7 @@ export const addressFixtureFactory = createParamFixtureFactory<AddressParam>(
  */
 export const addressArrayFixtureFactory =
   createParamFixtureFactory<AddressArrayParam>("address", {
-    valid: () => (process.env.SEPOLIA_ADDRESS_ARRAY ?? "").split(","),
+    valid: () => (import.meta.env.VITE_SEPOLIA_ADDRESS_ARRAY ?? "").split(","),
     invalid: () => ["invalid"],
     default: () => [],
   });

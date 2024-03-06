@@ -22,9 +22,6 @@ devDependencies:
   '@vitest/coverage-v8':
     specifier: ^1.2.2
     version: 1.2.2(vitest@1.2.2)
-  dotenv:
-    specifier: ^16.4.2
-    version: 16.4.2
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -1120,11 +1117,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
-    dev: true
-
-  /dotenv@16.4.2:
-    resolution: {integrity: sha512-rZSSFxke7d9nYQ5NeMIwp5PP+f8wXgKNljpOb7KtH6SKW1cEqcXAz9VSJYVLKe7Jhup/gUYOkaeSVyK8GJ+nBg==}
-    engines: {node: '>=12'}
     dev: true
 
   /effect@2.3.3:
