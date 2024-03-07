@@ -2,7 +2,7 @@
   "name": "etherscan",
   "version": "0.0.0",
   "type": "module",
-  "packageManager": "pnpm@8.15.1",
+  "packageManager": "pnpm@8.15.3",
   "scripts": {
     "build": "tsc && vite build && pnpm build:docs",
     "build:docs": "typedoc src/index.ts",
