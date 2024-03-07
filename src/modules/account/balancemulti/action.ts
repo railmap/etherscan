@@ -10,7 +10,7 @@ import type {
   BalanceMultiActionCall,
   BalanceMultiResultObject,
 } from "./types";
-import { AccountModuleName } from "etherscan/account";
+import { AccountModuleName } from "etherscan/modules/account";
 import {
   BalanceMultiActionName,
   BalanceMultiResponseSchema,

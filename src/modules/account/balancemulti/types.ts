@@ -3,11 +3,12 @@ import type {
   EtherscanActionCall,
   EtherscanParams,
   EtherscanRequest,
+  EtherscanResponse,
   EtherscanResult,
 } from "etherscan/types";
 
 import type { AddressArrayParam, TagParam } from "etherscan/types/param";
-import type { AccountModuleRequest } from "..";
+import type { AccountModuleRequest } from "etherscan/modules/account";
 import type { BalanceMultiActionName } from "./constants";
 
 /**
@@ -41,6 +42,11 @@ export interface BalanceMultiResultObject {
  * Response from the `account/balancemulti` action.
  */
 export type BalanceMultiResult = EtherscanResult<BalanceMultiResultObject[]>;
+
+/**
+ * Response from the `account/balancemulti` action.
+ */
+export type BalanceMultiResponse = EtherscanResponse<BalanceMultiResult>;
 
 /**
  * `account/balancemulti` action call.

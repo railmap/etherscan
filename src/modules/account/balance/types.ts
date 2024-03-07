@@ -7,7 +7,7 @@ import type {
   EtherscanResult,
 } from "etherscan/types";
 import type { AddressParam, TagParam } from "etherscan/types/param";
-import type { AccountModuleRequest } from "etherscan/account";
+import type { AccountModuleRequest } from "etherscan/modules/account";
 import type { BalanceActionName } from "./constants";
 
 /**
