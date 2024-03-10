@@ -1,6 +1,6 @@
 import type { EtherscanModule, EtherscanModuleRequest } from "etherscan/types";
-import type { BalanceAction } from "etherscan/account/balance";
-import type { BalanceMultiAction } from "etherscan/account/balancemulti";
+import type { BalanceAction } from "etherscan/modules/account/balance";
+import type { BalanceMultiAction } from "etherscan/modules/account/balancemulti";
 
 /**
  * Name of the `account` action.
@@ -23,6 +23,3 @@ export type AccountModuleRequest = EtherscanModuleRequest<
  * `account` module.
  */
 export type AccountModule = EtherscanModule<AccountModuleActions>;
-
-export * from "./balance";
-export * from "./balancemulti";

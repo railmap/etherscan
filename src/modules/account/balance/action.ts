@@ -3,7 +3,7 @@ import * as Either from "effect/Either";
 import queryString from "query-string";
 
 import { EtherscanBaseUrl } from "etherscan/constants";
-import { AccountModuleName } from "etherscan/account";
+import { AccountModuleName } from "etherscan/modules/account";
 import {
   type BalanceActionCall,
   type BalanceParams,
