@@ -1,6 +1,6 @@
 import * as S from "@effect/schema/Schema";
 
-import { createResponseSchema } from "etherscan/validation";
+import { createResponseSchema } from "etherscan/schema";
 
 /**
  * Name of the `account/balance` action.
