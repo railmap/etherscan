@@ -1,3 +1,3 @@
 export * from "./module";
-export * from "./balance";
-export * from "./balancemulti";
+export * as balance from "./balance";
+export * as balancemulti from "./balancemulti";

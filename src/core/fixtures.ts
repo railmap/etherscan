@@ -94,7 +94,7 @@ export const addressArrayFixtureFactory =
 
 /**
  * Tag param fixture factory.
- * @param fixtureType Validity of the fixture to return.
+ * @param {} fixtureType Validity of the fixture to return.
  * @returns EtherscanParams object populated with desired fixture.
  */
 export const tagFixtureFactory = createParamFixtureFactory<TagParam>("tag", {

@@ -1,5 +1,6 @@
 /**
  * Base URLs for the mainnet and testnet blockchains.
+ * @enum
  */
 export enum EtherscanBaseUrl {
   Mainnet = "https://api.etherscan.io/api",
@@ -9,6 +10,7 @@ export enum EtherscanBaseUrl {
 
 /**
  * Message value contained in Etherscan API responses.
+ * @enum
  */
 export enum EtherscanResponseMessage {
   Ok = "OK",

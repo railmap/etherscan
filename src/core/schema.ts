@@ -3,8 +3,8 @@ import { EtherscanResponseMessage } from "etherscan/constants";
 
 /**
  * Schema that validates responses with successful results.
- * @param result Action specific result schema.
- * @returns Schema for validating specific action responses.
+ * @param {S.Schema<any>} result - Action specific result schema.
+ * @returns {S.Schema<any>} Schema for validating specific action responses.
  */
 export const SuccessResponseSchema = (result: S.Schema<any>): S.Schema<any> => {
   return S.struct({
@@ -15,7 +15,9 @@ export const SuccessResponseSchema = (result: S.Schema<any>): S.Schema<any> => {
 };
 
 /**
- * Schema that validates responses with error results.
+ * Schema that validates responses with unsuccessful results.
+ * @category Response Schemas
+ * @returns {S.Schema<any>} Schema for validating error action responses.
  */
 export const ErrorResponseSchema = (): S.Schema<any> => {
   return S.struct({
