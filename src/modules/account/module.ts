@@ -3,23 +3,23 @@ import type { BalanceAction } from "etherscan/modules/account/balance";
 import type { BalanceMultiAction } from "etherscan/modules/account/balancemulti";
 
 /**
- * Name of the `account` action.
+ * Represents the name of the Account module.
  */
 export const AccountModuleName = "account";
 
 /**
- * Actions inside the `account` module.
+ * Represents the actions available within the Account module.
  */
 export type AccountModuleActions = BalanceAction | BalanceMultiAction;
 
 /**
- * Request base for `account` module actions.
+ * Represents a request for the Account module.
  */
 export type AccountModuleRequest = EtherscanModuleRequest<
   typeof AccountModuleName
 >;
 
 /**
- * `account` module.
+ * Represents the Account module which provides functionality related to account actions.
  */
 export type AccountModule = EtherscanModule<AccountModuleActions>;

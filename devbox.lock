@@ -1,23 +1,23 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "nodePackages.pnpm@8.15.1": {
-      "last_modified": "2024-02-15T12:53:33Z",
-      "resolved": "github:NixOS/nixpkgs/085589047343aad800c4d305cf7b98e8a3d51ae2#nodePackages.pnpm",
+    "nodePackages.pnpm@8.15.3": {
+      "last_modified": "2024-03-08T13:51:52Z",
+      "resolved": "github:NixOS/nixpkgs/a343533bccc62400e8a9560423486a3b6c11a23b#nodePackages.pnpm",
       "source": "devbox-search",
-      "version": "8.15.1",
+      "version": "8.15.3",
       "systems": {
         "aarch64-darwin": {
-          "store_path": "/nix/store/ygq6gz5ayv52vfh7vkyyklfcd5w1f277-pnpm-8.15.1"
+          "store_path": "/nix/store/m9p6q42njy1k33fdzf2axqyhy8vh4vn5-pnpm-8.15.3"
         },
         "aarch64-linux": {
-          "store_path": "/nix/store/hq4ia4477y09v544ix80adwqb4xp7h6r-pnpm-8.15.1"
+          "store_path": "/nix/store/war7jm6ka7afc2v8a78hlq8v9m4pg38m-pnpm-8.15.3"
         },
         "x86_64-darwin": {
-          "store_path": "/nix/store/vdmvnyvrmrv74vdisw1n8r3rjll29v07-pnpm-8.15.1"
+          "store_path": "/nix/store/3w3bs2cdqx7sivcldcf6drwrhilv511m-pnpm-8.15.3"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/ihf1h9ck14xdfaqm4qh2ha3bdgfrqs3b-pnpm-8.15.1"
+          "store_path": "/nix/store/hcq09j80njlfghy65qmwhn5nq20nk8kl-pnpm-8.15.3"
         }
       }
     },

@@ -1,1 +1,1 @@
-export * from "./account";
+export * as account from "./account";

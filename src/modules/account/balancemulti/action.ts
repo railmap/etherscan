@@ -19,9 +19,8 @@ import { Either } from "effect";
 
 /**
  * Returns the Ether balance for multiple addresses.
- *
- * @param baseUrl - Etherscan API URL for either _mainnet_ or _testnet_ explorers.
- * @param params  - Request parameters.
+ * @param {EtherscanBaseUrl} baseUrl - Etherscan API URL for either _mainnet_ or _testnet_ explorers.
+ * @param {BalanceMultiParams} params  - Request parameters.
  * @returns Promise object containing the response of the call.
  */
 export const balanceMulti: BalanceMultiActionCall = async (
